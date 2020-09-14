@@ -18,9 +18,17 @@ function createUser(name) {
 }
 
 function createUsers(users) {
-  return users.map((user) => {
+  return users.map((user) => { // getUsers retourne une promesse retournant un tableau de string, createUsers utilise ce tableau de strings pour retourner un tableau de promesses createUser qui elle crée des les utilisateurs 
     return createUser(user)
   })
 }
 
 // Votre code ici (8 lignes)
+getUsers()
+  .then(createUsers)
+  .then((users)=> {
+    return Promise.all(users) //on peut donc utiliser le tableau de promesses avec promise.all
+  })
+  .then(()=> {
+    console.log('All users created')
+  })
